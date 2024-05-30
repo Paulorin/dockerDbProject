@@ -34,11 +34,6 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>com.microsoft.sqlserver</groupId>-->
-<!--			<artifactId>mssql-jdbc</artifactId>-->
-<!--			<scope>runtime</scope>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -67,17 +62,17 @@
 <!--		</dependency>-->
 
 		<!--Databases -->
+		<!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
 		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>12.6.1.jre11</version>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>4.27.0</version>
 		</dependency>
-<!--		&lt;!&ndash; https://mvnrepository.com/artifact/org.liquibase/liquibase-core &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>org.liquibase</groupId>-->
-<!--			<artifactId>liquibase-core</artifactId>-->
-<!--			<version>4.27.0</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -86,30 +81,17 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.openapitools</groupId>-->
-<!--				<artifactId>openapi-generator-maven-plugin</artifactId>-->
-<!--				<version>7.3.0</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<goals>-->
-<!--							<goal>generate</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<inputSpec>-->
-<!--								${project.basedir}/src/main/resources/openapi/firstRestAPI-openapi-1.0.0.yaml-->
-<!--							</inputSpec>-->
-<!--							<generatorName>spring</generatorName>-->
-<!--							<apiPackage>com.example.restapp.api</apiPackage>-->
-<!--							<modelPackage>com.example.restapp.model</modelPackage>-->
-<!--							<configOptions>-->
-<!--								<interfaceOnly>true</interfaceOnly>-->
-<!--								<useSpringBoot3>true</useSpringBoot3>-->
-<!--							</configOptions>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>4.27.0</version>
+				<configuration>
+					<changeLogFile>liquibase/db.changelog.sql</changeLogFile>
+					<url>jdbc:postgresql://localhost:5432/testDb</url>
+					<username>user</username>
+					<password>pass</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
